@@ -6,6 +6,7 @@ Manage the API authentication.
 """
 from flask import request
 from typing import List, TypeVar
+from os import getenv
 
 
 class Auth:
@@ -35,5 +36,14 @@ class Auth:
         return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """Docs will ve added later after understanding what the function do"""
+        """Docs will be added later after understanding what the function do"""
         return None
+
+    def session_cookie(self, request=None):
+        """Returns a cookie value from a request"""
+        if request is None:
+            return None
+        cookie_name = getenv("SESSION_NAME")
+        if cookie_name is None:
+            raise ValueError("The SESSION_NAME envirenment varaible doesn't exist")
+        return request.cookies.get(cookie_name)

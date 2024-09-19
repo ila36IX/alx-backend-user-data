@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-For the moment is empty
+Implimenting the Basic authontication
 """
 from api.v1.auth.auth import Auth
 import base64

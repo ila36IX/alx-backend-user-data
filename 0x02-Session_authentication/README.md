@@ -1,4 +1,5 @@
-# Simple API
+# Simple API with seassion authontication
+![](https://roadmap.sh/guides/basic-authentication.png)
 
 Simple HTTP API for playing with `User` model.
 

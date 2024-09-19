@@ -6,6 +6,7 @@ ENV PYTHONUNBUFFERED 1
 ENV DEBIAN_FRONTEND noninteractive
 ENV FLASK_DEBUG 1
 ENV FLASK_APP="api.v1.app"
+ENV AUTH_TYPE=1
 
 # Update and install system dependencies
 RUN apt-get update && apt-get install -y \

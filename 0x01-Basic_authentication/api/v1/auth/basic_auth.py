@@ -69,6 +69,3 @@ class BasicAuth(Auth):
         user = self.user_object_from_credentials(email, password)
         print("user", user)
         return user
-ba = BasicAuth()
-res = ba.user_object_from_credentials("u1@gmail.com", "pwd")
-print(res)

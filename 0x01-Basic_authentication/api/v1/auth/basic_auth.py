@@ -4,6 +4,7 @@ For the moment is empty
 """
 from api.v1.auth.auth import Auth
 import base64
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
@@ -31,3 +32,29 @@ class BasicAuth(Auth):
             return auth_header.decode('utf-8')
         except Exception as e:
             return None
+
+    def extract_user_credentials(self,
+                                 decoded_base64_authorization_header: str
+                                 ) -> (str, str):
+        """returns the user email and password from the Base64 decoded value"""
+        if type(decoded_base64_authorization_header) is not str:
+            return None, None
+        if ":" not in decoded_base64_authorization_header:
+            return None, None
+        return tuple(decoded_base64_authorization_header.split(':'))
+
+    def user_object_from_credentials(self, 
+                                     user_email: str, 
+                                     user_pwd: str) -> TypeVar('User'):
+        """returns the User instance based on his email and password"""
+        if user_email is None or user_pwd is None:
+            return None
+        from models.user import User
+        attrubutes = {"email": user_email}
+        users = User.search()
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
+        return None
+
+

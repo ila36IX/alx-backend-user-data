@@ -39,13 +39,6 @@ def check_protected():
         return
 
 
-@app.errorhandler(404)
-def not_found(error) -> str:
-    """ Not found handler
-    """
-    return jsonify({"error": "Not found"}), 404
-
-
 @app.errorhandler(401)
 def not_auth(error) -> str:
     """Unauthorized resourse"""
@@ -56,6 +49,13 @@ def not_auth(error) -> str:
 def forbidden(error) -> str:
     """forbidden resourse"""
     return jsonify({"error": "Forbidden"}), 403
+
+
+@app.errorhandler(404)
+def not_found(error) -> str:
+    """ Not found handler
+    """
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ class Auth:
         """Return the credintiols used by the user to authonticate"""
         if request is None:
             return None
-        return request.args.get('Authorization', None)
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Docs will ve added later after understanding what the function do"""

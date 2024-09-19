@@ -23,11 +23,12 @@ def check_protected():
     """Check if path is open or raise error if it's protected"""
     if auth is None:
         return
-    protected_urls = [
-            '/api/v1/status/',
-            '/api/v1/unauthorized/',
-            '/api/v1/forbidden/'
-            ]
+    # protected_urls = [
+    #         '/api/v1/status/',
+    #         '/api/v1/unauthorized/',
+    #         '/api/v1/forbidden/'
+    #         ]
+    protected_urls = ["/api/v1/stat*"]
     if auth.require_auth(request.path, protected_urls) is False:
         return
     if auth.authorization_header(request) is None:

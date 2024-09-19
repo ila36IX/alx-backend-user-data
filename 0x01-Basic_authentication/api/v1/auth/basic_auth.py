@@ -41,7 +41,6 @@ class BasicAuth(Auth):
             return None, None
         if ":" not in decoded_base64_authorization_header:
             return None, None
-        print(tuple(decoded_base64_authorization_header.split(':', 1)))
         return tuple(decoded_base64_authorization_header.split(':', 1))
 
     def user_object_from_credentials(self,
@@ -51,8 +50,9 @@ class BasicAuth(Auth):
         if type(user_email) is not str or type(user_pwd) is not str:
             return None
         from models.user import User
+        users = User.load_from_file()
         attrubutes = {"email": user_email}
-        users = User.search()
+        users = User.search(attrubutes)
         for user in users:
             if user.is_valid_password(user_pwd):
                 return user
@@ -67,4 +67,8 @@ class BasicAuth(Auth):
         auth_str = self.decode_base64_authorization_header(auth_base64)
         email, password = self.extract_user_credentials(auth_str)
         user = self.user_object_from_credentials(email, password)
+        print("user", user)
         return user
+ba = BasicAuth()
+res = ba.user_object_from_credentials("u1@gmail.com", "pwd")
+print(res)

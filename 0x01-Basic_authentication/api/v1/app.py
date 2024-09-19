@@ -1,4 +1,4 @@
-#/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Route module for the API
 """
@@ -20,19 +20,21 @@ if getenv("AUTH_TYPE", None):
 
 @app.before_request
 def check_protected():
+    """Check if path is open or raise error if it's protected"""
     if auth is None:
-        return
+        pass
     protected_urls = [
             '/api/v1/status/',
             '/api/v1/unauthorized/',
             '/api/v1/forbidden/'
-            ] 
+            ]
     if auth.require_auth(request.path, protected_urls) is False:
-        return
+        pass
     if auth.authorization_header(request) is None:
         abort(401)
     if auth.current_user(request) is None:
         abort(403)
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -51,6 +53,7 @@ def not_auth(error) -> str:
 def forbidden(error) -> str:
     """forbidden resourse"""
     return jsonify({"error": "Forbidden"}), 403
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")

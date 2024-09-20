@@ -24,7 +24,7 @@ def login():
     if user.is_valid_password(password):
         from api.v1.app import auth
         new_session = auth.create_session(user.id)
-        response = make_response(user.to_json())
+        response = make_response(jsonify(user.to_json()))
         cookie_name = getenv("SESSION_NAME")
         response.set_cookie(cookie_name, new_session)
         return response
@@ -41,4 +41,4 @@ def logout():
     session_deleted = auth.destroy_session(request)
     if not session_deleted:
         abort(404)
-    return jsonify({}), 404
+    return jsonify({}), 200

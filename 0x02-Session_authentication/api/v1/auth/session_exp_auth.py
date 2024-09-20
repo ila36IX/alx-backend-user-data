@@ -9,7 +9,7 @@ from datetime import datetime
 
 class SessionExpAuth(SessionAuth):
     """Adding the expiration to the Session authontication"""
-    
+
     def __init__(self):
         """Overloading the init method"""
         try:

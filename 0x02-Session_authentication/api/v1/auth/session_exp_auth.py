@@ -12,7 +12,10 @@ class SessionExpAuth(SessionAuth):
     
     def __init__(self):
         """Overloading the init method"""
-        session_duration = getenv("SESSION_DURATION", 0)
+        try:
+            self.session_duration = int(getenv("SESSION_DURATION", 0))
+        except Exception as e:
+            self.session_duration = 0
 
     def create_session(self, user_id=None):
         """Create the session and assign an expiration date to it"""
@@ -32,9 +35,9 @@ class SessionExpAuth(SessionAuth):
         session_dict = self.user_id_by_session_id.get(session_id)
         if self.session_duration <= 0:
             return session_dict.get("user_id")
-        if "created_at" not in self.user_id_by_session_id:
+        if "created_at" not in session_dict:
             return None
-        delta_time = datatime.now() - session_dict["created_at"]
+        delta_time = datetime.now() - session_dict["created_at"]
         if delta_time.total_seconds() > self.session_duration:
             return None
-            return session_dict.get("user_id")
+        return session_dict.get("user_id")

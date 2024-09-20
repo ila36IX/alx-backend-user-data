@@ -44,7 +44,7 @@ class Auth:
         if request is None:
             return None
         cookie_name = getenv("SESSION_NAME")
-        if cookie_name is None:
-            raise ValueError("The SESSION_NAME envirenment \
-                             varaible doesn't exist")
+        # if cookie_name is None:
+        #     raise ValueError("The SESSION_NAME envirenment \
+        #                      varaible doesn't exist")
         return request.cookies.get(cookie_name)

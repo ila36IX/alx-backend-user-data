@@ -14,4 +14,3 @@ user.email = user_email
 user.password = user_clear_pwd
 user.save()
 user.load_from_file
-

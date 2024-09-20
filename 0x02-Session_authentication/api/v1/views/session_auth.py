@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """
 Implimenting the Session authontication routes
@@ -30,3 +29,16 @@ def login():
         response.set_cookie(cookie_name, new_session)
         return response
     return jsonify({"error": "wrong password"}), 401
+
+
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'], strict_slashes=False)
+def logout():
+    """Route to hondle the logout by deleting the session id from sessions
+    poll
+    """
+    from api.v1.app import auth
+    session_deleted = auth.destroy_session(request)
+    if not session_deleted:
+        abort(404)
+    return jsonify({}), 404

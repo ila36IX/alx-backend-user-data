@@ -39,8 +39,6 @@ def check_protected():
     request.current_user = auth.current_user(request)
     if request.current_user is None:
         abort(403)
-    if request.path in ["/api/v1/users/me", "/api/v1/users/me/"]:
-        return
 
 
 @app.errorhandler(401)

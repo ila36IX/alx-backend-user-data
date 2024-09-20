@@ -16,19 +16,14 @@
 # user.load_from_file
 #!/usr/bin/env python3
 #!/usr/bin/python3
+#!/usr/bin/python3
 """ Check response
 """
 import requests
-import base64
 
 if __name__ == "__main__":
-    user_email = "bob@hbtn.io"
-    user_clear_pwd = "pwd"
-
-
-    basic_clear = "{}:{}".format(user_email, user_clear_pwd)
-    r = requests.get('http://0.0.0.0:5000/api/v1/users/me', headers={ 'Authorization': "Basic {}".format(base64.b64encode(basic_clear.encode('utf-8')).decode("utf-8")) })
-    if r.status_code != 403:
+    r = requests.get('http://0.0.0.0:5000/api/v1/users')
+    if r.status_code != 401:
         print("Wrong status code: {}".format(r.status_code))
         exit(1)
     if r.headers.get('content-type') != "application/json":
@@ -46,7 +41,7 @@ if __name__ == "__main__":
         if error_value is None:
             print("Missing 'error' key in the JSON: {}".format(r_json))
             exit(1)
-        if error_value != "Forbidden":
+        if error_value != "Unauthorized":
             print("'error' doesn't have the right value: {}".format(error_value))
             exit(1)
             

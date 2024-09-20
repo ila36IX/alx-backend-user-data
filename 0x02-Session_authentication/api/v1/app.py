@@ -33,8 +33,9 @@ def check_protected():
     protected_urls = ["/api/v1/stat*", "/api/v1/auth_session/login/"]
     if auth.require_auth(request.path, protected_urls) is False:
         return
-    if auth.authorization_header(request) is None \
-            and auth.session_cookie(request) is None:
+    # if auth.authorization_header(request) is None \
+    #         and auth.session_cookie(request) is None:
+    if auth.authorization_header(request) is None:
         abort(401)
     request.current_user = auth.current_user(request)
     if request.current_user is None:

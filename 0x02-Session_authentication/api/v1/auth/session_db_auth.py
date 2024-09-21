@@ -43,6 +43,6 @@ class SessionDBAuth(SessionExpAuth):
             return False
         user_id = getattr(session_dict[0], "user_id")
         if user_id is None:
-           return False
+            return False
         session_dict[0].remove()
         return True

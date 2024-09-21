@@ -2,7 +2,7 @@
 """
 Implimenting the Session authontication routes
 """
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, abort
 from models.user import User
 from api.v1.views import app_views
 from os import getenv

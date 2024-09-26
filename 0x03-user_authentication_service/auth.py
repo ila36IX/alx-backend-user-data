@@ -11,7 +11,7 @@ from uuid import uuid4
 from typing import Optional
 
 
-def _hash_password(password: str) -> bytes:
+def _hash_password(password: str) -> str:
     """returned bytes of salted hash of the input password"""
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 

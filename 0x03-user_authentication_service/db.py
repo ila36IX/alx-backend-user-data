@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
-from typing import Union
 from user import User, Base
 
 
@@ -39,7 +38,7 @@ class DB:
         s.commit()
         return user
 
-    def find_user_by(self, **kwargs: Union[str, int]) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """Returns the first row found in the users table as filtered by the
         method’s input arguments
         """
@@ -49,7 +48,7 @@ class DB:
         user = s.query(User).filter_by(**kwargs).one()
         return user
 
-    def update_user(self, user_id: int, **kwargs: Union[str, int]) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """Update the user’s attributes as passed in the method’s arguments
         then commit changes to the database
         """

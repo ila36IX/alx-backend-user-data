@@ -43,11 +43,13 @@ class DB:
         """Returns the first row found in the users table as filtered by the
         method’s input arguments
         """
+        if len(kwargs) == 0:
+            raise InvalidRequestError
         s = self._session
         user = s.query(User).filter_by(**kwargs).one()
         return user
 
-    def update_user(self, user_id: int, **kwargs: Union[str, int]):
+    def update_user(self, user_id: int, **kwargs: Union[str, int]) -> None:
         """Update the user’s attributes as passed in the method’s arguments
         then commit changes to the database
         """

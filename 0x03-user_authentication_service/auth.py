@@ -16,6 +16,11 @@ def _hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
+def _generate_uuid() -> str:
+    """return a string representation of a new UUID"""
+    return str(uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -44,9 +49,6 @@ class Auth:
         except NoResultFound:
             return False
 
-    def _generate_uuid(self) -> str:
-        """return a string representation of a new UUID"""
-        return str(uuid4())
 
     def create_session(self, email: str) -> Optional[str]:
         """Find the user with the email, generate a new UUID and store it in
@@ -75,6 +77,10 @@ class Auth:
             self._db.update_user(user_id, session_id=None)
         except NoResultFound:
             return
+
+    def _generate_uuid() -> str:
+        """return a string representation of a new UUID"""
+        return str(uuid4())
 
     def get_reset_password_token(self, email: str) -> str:
         """Generate a UUID and update the user’s reset_token database field"""

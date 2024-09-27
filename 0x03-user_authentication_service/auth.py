@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """
 Auth model generating users
+- register
+- login
+- valid log in
+- 
 """
-from sqlalchemy.util import NoneType
 import bcrypt
 from db import DB
 from user import User
-from sqlalchemy.exc import NoResultFound
 from uuid import uuid4
 from typing import Optional
+from sqlalchemy.util import NoneType
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def _hash_password(password: str) -> bytes:

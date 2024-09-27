@@ -82,15 +82,15 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """Generate a UUID and update the user’s reset_token database field"""
-        if type(email) is not str or len(email) == 0:
-            raise ValueError
+        # if type(email) is not str or len(email) == 0:
+        #     raise ValueError
         try:
             user = self._db.find_user_by(email=email)
-            reset_token = _generate_uuid()
-            self._db.update_user(user.id, reset_token=reset_token)
-            return reset_token
         except NoResultFound:
             raise ValueError
+        reset_token = _generate_uuid()
+        self._db.update_user(user.id, reset_token=reset_token)
+        return reset_token
 
     def update_password(self, reset_token: str, password: str) -> None:
         """Find the corresponding user and update he's `hashed_password`"""

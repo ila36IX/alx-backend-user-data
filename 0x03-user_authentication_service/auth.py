@@ -4,7 +4,6 @@ Auth model generating users
 - register
 - login
 - valid log in
-- 
 """
 import bcrypt
 from db import DB
@@ -104,3 +103,11 @@ class Auth:
                                  reset_token=None)
         except NoResultFound:
             raise ValueError
+email = 'bob@bob.com'
+password = 'MyPwdOfBob'
+auth = Auth()
+
+auth.register_user(email, password)
+
+print(auth.create_session(email))
+print(auth.create_session("unknown@email.com"))
